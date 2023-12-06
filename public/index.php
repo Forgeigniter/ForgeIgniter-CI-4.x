@@ -12,6 +12,9 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
     exit($message);
 }
 
+//
+define('ROOTPATH', realpath(__DIR__.'/../').'/');
+
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 

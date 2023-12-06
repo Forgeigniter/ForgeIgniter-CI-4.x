@@ -45,9 +45,9 @@ class Autoload extends AutoloadConfig
      * @phpstan-var array<string, string|list<string>>
      */
     public $psr4 = [
-        APP_NAMESPACE => APPPATH, // For custom app namespace
-        'Config'      => APPPATH . 'Config',
-        'Modules'     => ROOTPATH . 'forgeigniter/modules',
+        'ForgeIgniter' => ROOTPATH . 'forgeigniter',
+        'Config'       => ROOTPATH . 'forgeigniter/cms/Config',
+        'Modules'      => ROOTPATH . 'forgeigniter/modules',
     ];
 
     /**
