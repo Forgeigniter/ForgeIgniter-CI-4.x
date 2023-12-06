@@ -28,7 +28,7 @@ class Paths
      * This must contain the name of your "system" folder. Include
      * the path if the folder is not in the same directory as this file.
      */
-    public string $systemDirectory = __DIR__ . '/../../system';
+    public string $systemDirectory = __DIR__ . '../../../../system';
 
     /**
      * ---------------------------------------------------------------
@@ -55,7 +55,7 @@ class Paths
      * for maximum security, keeping it out of the app and/or
      * system directories.
      */
-    public string $writableDirectory = __DIR__ . '/../../writable';
+    public string $writableDirectory = __DIR__ . '/../../../writable';
 
     /**
      * ---------------------------------------------------------------
@@ -64,7 +64,7 @@ class Paths
      *
      * This variable must contain the name of your "tests" directory.
      */
-    public string $testsDirectory = __DIR__ . '/../../tests';
+    public string $testsDirectory = __DIR__ . '/../../../tests';
 
     /**
      * ---------------------------------------------------------------
