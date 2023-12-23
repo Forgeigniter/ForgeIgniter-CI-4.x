@@ -6,4 +6,5 @@ if (!isset($routes)) {
 
 $routes->group('', ['namespace' => 'Modules\Blog\Controllers'], function($routes) {
     $routes->get('blog', 'Blog::index');
+    $routes->get('blog/post/(:num)', 'Blog::post/$1');
 });

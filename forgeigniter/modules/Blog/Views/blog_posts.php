@@ -72,6 +72,15 @@ body {
     flex: 1; /* Takes up the remaining space */
 }
 
+.post a {
+    text-decoration: none;
+    color: #333;
+}
+
+.post a:hover {
+    color: #1e1e1e;
+}
+
 .post h2 {
     margin-top: 0;
     color: #333;
@@ -123,7 +132,7 @@ body {
                 <img src="<?= esc(base_url($post['image_path'].$post['image_name'])) ?>" alt="<?= esc($post['image_name'] ?? 'Post Image') ?>" class="post-img">
             <?php endif; ?>
             <div class="post-content">
-                <h2><?= esc($post['title']) ?></h2>
+                <h2><a href="<?= base_url('/blog/post/' . $post['id']) ?>"><?= esc($post['title']) ?></a></h2>
                 <p><?= esc($post['content']) ?></p>
             </div>
         </div>

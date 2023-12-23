@@ -13,4 +13,11 @@ class Blog extends Controller {
         echo view('Modules\Blog\Views\blog_posts', $data);
     }
 
+    public function post($postId) {
+        $blogModel = new Blog_Model();
+        $data['post'] = $blogModel->getPostWithImages($postId);
+
+        echo view('Modules\Blog\Views\blog_single_post', $data);
+    }
+
 }
