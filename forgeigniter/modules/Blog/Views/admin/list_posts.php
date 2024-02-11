@@ -1,4 +1,6 @@
 <h2>Blog Posts</h2>
+<h3><a href="<?= base_url('/blog/'); ?>" target="_blank">View Posts</a></h3>
+<a href="<?= base_url('/blog/create'); ?>" class="btn btn-primary">Create New Post</a>
 <table>
     <thead>
         <tr>

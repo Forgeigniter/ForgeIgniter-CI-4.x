@@ -15,6 +15,24 @@ class Blog_Admin extends Controller {
     }
 
     //CREATE
+    public function create() {
+        $model = new Blog_Model();
+
+        // Check if the form was submitted
+        if ($this->request->is('post')) {
+            $postData = [
+                'title' => $this->request->getPost('title'),
+                'content' => $this->request->getPost('content'),
+            ];
+            $model->save($postData);
+
+            // Redirect after successful creation
+            return redirect()->to('/admin/blog');
+        }
+
+        // Load the view
+        return view('Modules\Blog\Views\admin\create_post');
+    }
 
     //EDIT
     public function edit($postId = null) {
