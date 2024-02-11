@@ -8,7 +8,6 @@
         <textarea name="content" id="content"><?= esc($post['content']) ?></textarea>
         <br>
     </div>
-    <!-- Add other fields as necessary -->
     <div>
         <button type="submit">Update Post</button>
     </div>
