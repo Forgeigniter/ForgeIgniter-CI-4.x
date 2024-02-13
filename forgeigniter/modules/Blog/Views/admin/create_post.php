@@ -1,3 +1,5 @@
+<?= view('Modules\Blog\Views\admin\partials\status_messages'); ?>
+
 <form action="<?= site_url('/admin/blog/create'); ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?> <!-- CSRF protection -->
     <div class="form-group">

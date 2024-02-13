@@ -1,3 +1,5 @@
+<?= view('Modules\Blog\Views\admin\partials\status_messages'); ?>
+
 <h2>Edit Post</h2>
 <form action="<?= site_url('admin/blog/edit/' . $post['id']) ?>" method="post">
     <div>

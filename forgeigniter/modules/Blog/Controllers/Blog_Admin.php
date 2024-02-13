@@ -9,8 +9,6 @@ class Blog_Admin extends Controller {
     public function index() {
         $model = new Blog_Model();
         $data['blog_posts'] = $model->getPostsWithImages();
-
-        // Load a view
         echo view('Modules\Blog\Views\admin\list_posts', $data);
     }
 
@@ -19,46 +17,45 @@ class Blog_Admin extends Controller {
         helper(['form', 'url']);
         $model = new Blog_Model();
 
-        if ($this->request->is('post')) { // More explicit check for POST request
+        if ($this->request->is('post')) {
             // Validation Rules
             $rules = [
                 'title' => 'required|min_length[3]|max_length[255]',
                 'content' => 'required',
-                'image' => 'uploaded[image]|max_size[image,2048]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png]',
+                'image' => 'max_size[image,2048]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png]',
             ];
 
             if (!$this->validate($rules)) {
-                // Send back with errors
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
             }
 
             $title = $this->request->getPost('title');
             $content = $this->request->getPost('content');
-            $data = ['title' => $title, 'content' => $content]; // Default data array
+            $data = ['title' => $title, 'content' => $content];
+
+            // This image shit pisses me off here
+            // Image Manager needed!
 
             $img = $this->request->getFile('image');
-            if ($img->isValid() && !$img->hasMoved()) {
-                $newName = $img->getRandomName(); // Generate a new, random name for the file
-                $img->move(WRITEPATH . 'uploads/blog', $newName); // Move the file to the server
-                $data['image_name'] = $img->getName(); // Original name or $newName after move
-                $data['image_path'] = WRITEPATH . 'uploads/blog/' . $newName; // Path where the image is stored
+            if (!empty($img) && $img->isValid() && !$img->hasMoved()) {
+                $newName = $img->getRandomName();
+                $targetPath = 'uploads/blog'; // Should pick later on !?
+                $img->move(FCPATH . $targetPath, $newName);
+                $data['image_name'] = $newName;
+                $data['image_path'] = $targetPath . '/';
             }
 
             if ($model->save($data)) {
-                // Optionally handle image data in model if necessary
                 if (isset($data['image_name'])) {
-                    // Assuming your model has a method for additional image processing
-                    $blogPostId = $model->getInsertID(); // Get the ID of the newly created blog post
+                    $blogPostId = $model->getInsertID();
                     $model->saveImage($blogPostId, $data['image_name'], $data['image_path']);
                 }
                 return redirect()->to('/admin/blog')->with('message', 'Post created successfully');
             } else {
-                // Handle failure
                 return redirect()->back()->withInput()->with('error', 'Failed to create post');
             }
         }
 
-        // Load the view for creating a new post
         return view('Modules\Blog\Views\admin\create_post');
     }
 
