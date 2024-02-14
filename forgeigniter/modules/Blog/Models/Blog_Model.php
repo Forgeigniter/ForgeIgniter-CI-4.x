@@ -55,4 +55,15 @@ class Blog_Model extends Model {
         // Log error or handle it as needed
         return false; // Failed to save or update
     }
+
+    public function getImagesByPostId($postId) {
+        $db = \Config\Database::connect();
+        $query = $db->table('blog_post_images')->where('blog_post_id', $postId)->get();
+        return $query->getResultArray();
+    }
+
+    public function deleteImage($imageId) {
+        $db = \Config\Database::connect();
+        $db->table('blog_post_images')->where('id', $imageId)->delete();
+    }
 }

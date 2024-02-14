@@ -1,4 +1,10 @@
 <?php
+/**
+ * ForgeIgniter
+ *
+ * We'll clean things up later on
+ *
+ */
 namespace Modules\Blog\Controllers;
 
 use Modules\Blog\Models\Blog_Model;
@@ -82,6 +88,33 @@ class Blog_Admin extends Controller {
         return view('Modules\Blog\Views\admin\edit_post', $data);
     }
 
-    //DELETE
+    // DELETE
+    public function delete($postId = null) {
+        $model = new Blog_Model();
+        helper(['form', 'url']);
+
+        if ($postId && $model->find($postId)) {
+
+            $deleteFiles = $this->request->getPost('delete_files') === 'yes';
+
+            if ($deleteFiles) {
+                $images = $model->getImagesByPostId($postId);
+                foreach ($images as $image) {
+                    $filePath = FCPATH . $image['image_path'] . $image['image_name'];
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+
+                    $model->deleteImage($image['id']);
+                }
+            }
+
+            $model->delete($postId);
+
+            return redirect()->to('/admin/blog')->with('message', 'Post Deleted');
+        } else {
+            return redirect()->to('/admin/blog')->with('error', 'Post not found');
+        }
+    }
 
 }

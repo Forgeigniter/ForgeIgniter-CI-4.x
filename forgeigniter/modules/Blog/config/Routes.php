@@ -16,4 +16,5 @@ $routes->group('', ['namespace' => 'Modules\Blog\Controllers'], function($routes
     $routes->match(['get', 'post'], 'admin/blog/create', 'Blog_Admin::create');
     $routes->match(['get', 'post'], 'admin/blog/edit/(:num)', 'Blog_Admin::edit/$1');
     // DELETE
+    $routes->delete('admin/blog/delete/(:num)', 'Blog_Admin::delete/$1');
 });
