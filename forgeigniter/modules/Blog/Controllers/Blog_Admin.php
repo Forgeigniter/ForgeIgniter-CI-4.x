@@ -8,14 +8,16 @@
 namespace Modules\Blog\Controllers;
 
 use Modules\Blog\Models\Blog_Model;
-use CodeIgniter\Controller;
 
-class Blog_Admin extends Controller {
+class Blog_Admin extends \App\Controllers\Admin_Controller {
 
     public function index() {
         $model = new Blog_Model();
         $data['blog_posts'] = $model->getPostsWithImages();
-        echo view('Modules\Blog\Views\admin\list_posts', $data);
+
+        //echo view('Modules\Blog\Views\admin\list_posts', $data);
+        //return $this->moduleView('admin\list_posts', $data);
+        echo admin_view('list_posts', $data);
     }
 
     //CREATE
